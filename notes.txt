@@ -1,0 +1,25 @@
+todo
+
+x- design document
+- implement add
+    - add controller
+    - add routes
+    x- add service
+    x- add infrastructure
+
+- implement delete
+- implement get 
+- implement delete
+- how to implement queries?
+
+
+questions
+
+
+info
+
+Doc
+id
+data
+createdAt
+createdBy
