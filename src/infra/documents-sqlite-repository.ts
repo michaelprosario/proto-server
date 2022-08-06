@@ -1,11 +1,33 @@
 import { IDocRepository } from "@/core/interfaces/doc-repository";
-import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery } from "@/core/requests/commands";
+import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, UpdateDocumentCommand } from "@/core/requests/commands";
 import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResponse } from "@/core/responses/responses";
 import { json } from "envalid";
 const knexConfig = require('../../db/knexfile');
 const knex = require('knex')(knexConfig["development"])
 
 export class DocumentsSqliteRepository implements IDocRepository {
+    async update(command: UpdateDocumentCommand) : Promise<AppResponse> {
+        console.log(command);
+        let response = new AppResponse();
+
+        let doc = command.document;
+
+        try
+        {
+            let insertResponse = await knex('docs')
+                .where({"id": doc.id})
+                .update(doc)
+        }
+        catch(e)
+        {
+            console.log(e);
+            response.code = 500;
+            response.message = "error on update";
+        }
+
+        return response;        
+    }
+
     async add(command: AddDocumentCommand): Promise<AddDocumentResponse> {
         let response = new AddDocumentResponse();
 

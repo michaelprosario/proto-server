@@ -1,16 +1,55 @@
 import { IDocRepository } from "../interfaces/doc-repository";
-import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery } from "../requests/commands";
+import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, UpdateDocumentCommand } from "../requests/commands";
 import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResponse } from "../responses/responses";
 
 export class DocumentsService
 {
+    async update(command: UpdateDocumentCommand) {
+        let response = new AppResponse();
+        if(!command || !command.document)
+        {
+            response.code = 400;
+            response.message = "command or document not defined";
+            return response;
+        }
+
+        if(!command.userId)
+        {
+            response.code = 400;
+            response.message = "command.userId not defined";
+            return response;
+        }
+
+        if(!command.document.name)
+        {
+            response.code = 400;
+            response.message = "command.document.name not defined";
+            return response;
+        }
+
+        if(!command.document.collection)
+        {
+            response.code = 400;
+            response.message = "command.document.collection not defined";
+            return response;
+        }
+
+        if(!command.document.data)
+        {
+            response.code = 400;
+            response.message = "command.document.data not defined";
+            return response;
+        }
+            
+        return await this.docRepository.update(command);
+    }
+
     constructor(private docRepository: IDocRepository)
     {
 
     }
 
     async add(command: AddDocumentCommand): Promise<AddDocumentResponse> {
-        console.log(command);
         let response = new AddDocumentResponse();
         if(!command || !command.document)
         {
