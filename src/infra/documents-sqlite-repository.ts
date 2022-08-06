@@ -1,6 +1,7 @@
 import { IDocRepository } from "@/core/interfaces/doc-repository";
 import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery } from "@/core/requests/commands";
 import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResponse } from "@/core/responses/responses";
+import { json } from "envalid";
 const knexConfig = require('../../db/knexfile');
 const knex = require('knex')(knexConfig["development"])
 
@@ -38,9 +39,35 @@ export class DocumentsSqliteRepository implements IDocRepository {
 
     async getDocuments(command: GetDocumentsQuery): Promise<GetDocumentsResponse> {
         let response = new GetDocumentsResponse();
-        // create empty list
-        // list all json files
-        // load entities from file system  
+        response.documents = [];
+
+        try{
+            let selectResponse = await knex('docs')
+            .select({
+                id: 'id',
+                createdBy: 'createdBy',
+                createdAt: 'createdAt',
+                name: 'name',
+                collection: 'collection',
+                data: 'data'    
+            })
+
+            for(let record of selectResponse)
+            {
+                record.data = JSON.parse(record.data);
+                response.documents.push(record);
+            }
+
+            console.log(selectResponse);
+
+        }
+        catch(e)
+        {
+            console.log(e);
+            response.code = 500;
+            response.message = "error on list operation"
+        }
+
         return response;
     }
 

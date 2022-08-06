@@ -1,4 +1,4 @@
-import { AddDocumentCommand, DeleteDocumentCommand } from '@/core/requests/commands';
+import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentsQuery } from '@/core/requests/commands';
 import { DocumentsService } from '@/core/services/documents-service';
 import { DocumentsFileRepository } from '@/infra/documents-file-repository';
 import { DocumentsSqliteRepository } from '@/infra/documents-sqlite-repository';
@@ -16,7 +16,7 @@ class DocumentsController {
     try {
       const command: AddDocumentCommand = req.body;
       const response = await this.documentsService.add(command);
-      res.status(201).json(response);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }
@@ -26,7 +26,17 @@ class DocumentsController {
     try {
       const command: DeleteDocumentCommand = req.body;
       const response = await this.documentsService.delete(command);
-      res.status(201).json(response);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getDocuments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const command: GetDocumentsQuery = req.body;
+      const response = await this.documentsService.getDocuments(command);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }

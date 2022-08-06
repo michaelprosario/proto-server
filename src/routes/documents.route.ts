@@ -12,8 +12,9 @@ class DocumentsRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}/add-document`, this.documentsController.addDocument);
-    this.router.post(`${this.path}/delete-document`, this.documentsController.deleteDocument);    
+    this.router.post(`${this.path}/add`, this.documentsController.addDocument);
+    this.router.post(`${this.path}/delete`, this.documentsController.deleteDocument);    
+    this.router.post(`${this.path}/list-all`, this.documentsController.getDocuments);
   }
 }
 
