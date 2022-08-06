@@ -1,13 +1,14 @@
 import { AddDocumentCommand, DeleteDocumentCommand } from '@/core/requests/commands';
 import { DocumentsService } from '@/core/services/documents-service';
-import { DocumentsFileRepository } from '@/infra/documents-repository';
+import { DocumentsFileRepository } from '@/infra/documents-file-repository';
+import { DocumentsSqliteRepository } from '@/infra/documents-sqlite-repository';
 import { NextFunction, Request, Response } from 'express';
 
 class DocumentsController {
   public documentsService : DocumentsService;
 
   constructor(){
-    let repo = new DocumentsFileRepository();
+    let repo = new DocumentsSqliteRepository();
     this.documentsService = new DocumentsService(repo);
   }
 

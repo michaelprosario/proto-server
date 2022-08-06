@@ -10,8 +10,9 @@ export class DocumentsService
     }
 
     async add(command: AddDocumentCommand): Promise<AddDocumentResponse> {
+        console.log(command);
         let response = new AddDocumentResponse();
-        if(!command || command.document)
+        if(!command || !command.document)
         {
             response.code = 400;
             response.message = "command or document not defined";
