@@ -50,14 +50,59 @@ export class DocumentsService
     }
 
     async delete(command: DeleteDocumentCommand): Promise<AppResponse> {
+        let response = new AppResponse();
+        if(!command)
+        {
+            response.code = 401;
+            response.message = "command not defined";
+            return response;
+        }
+
+        if(!command.userId)
+        {
+            response.code = 401;
+            response.message = "command.userId not defined";
+            return response;
+        }
+
         return await this.docRepository.delete(command);
     }
 
     async get(command: GetDocumentQuery): Promise<GetDocumentResponse> {
+        let response = new GetDocumentResponse();
+        if(!command)
+        {
+            response.code = 401;
+            response.message = "command not defined";
+            return response;
+        }
+
+        if(!command.userId)
+        {
+            response.code = 401;
+            response.message = "command.userId not defined";
+            return response;
+        }
+
         return await this.docRepository.get(command);
     }
 
-    getDocuments(command: GetDocumentsQuery): Promise<GetDocumentsResponse> {
+    async getDocuments(command: GetDocumentsQuery): Promise<GetDocumentsResponse> {
+        let response = new GetDocumentsResponse();
+        if(!command)
+        {
+            response.code = 401;
+            response.message = "command not defined";
+            return response;
+        }
+
+        if(!command.userId)
+        {
+            response.code = 401;
+            response.message = "command.userId not defined";
+            return response;
+        }
+
         return this.docRepository.getDocuments(command);
     }
 }

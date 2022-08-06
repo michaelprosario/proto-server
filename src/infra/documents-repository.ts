@@ -19,13 +19,27 @@ export class DocumentsFileRepository implements IDocRepository
         return response;
     }
 
-    delete(command: DeleteDocumentCommand): Promise<AppResponse> {
-        throw new Error("Method not implemented.");
+    async delete(command: DeleteDocumentCommand): Promise<AppResponse> {
+        let response = new AppResponse();
+
+        let fileName = command.recordId + ".json";
+        await fs.unlink(fileName);
+        return response;
     }
-    get(command: GetDocumentQuery): Promise<GetDocumentResponse> {
-        throw new Error("Method not implemented.");
+    async get(command: GetDocumentQuery): Promise<GetDocumentResponse> {
+        let response = new GetDocumentResponse();
+        let fileName = command.recordId + ".json";
+        let fsGetResponse = await fs.readFile(fileName); 
+        console.log(fsGetResponse);
+
+        return response;
     }
+
     getDocuments(command: GetDocumentsQuery): Promise<GetDocumentsResponse> {
+        // create empty list
+        // list all json files
+        // load entities from file system  
+
         throw new Error("Method not implemented.");
     }
 
