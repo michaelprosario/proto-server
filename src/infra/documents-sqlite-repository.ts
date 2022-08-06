@@ -34,6 +34,30 @@ export class DocumentsSqliteRepository implements IDocRepository {
     async get(command: GetDocumentQuery): Promise<GetDocumentResponse> {
         let response = new GetDocumentResponse();
 
+        try{
+            let selectResponse = await knex('docs')
+            .select().where({"id": command.recordId})
+
+            if(!selectResponse || selectResponse.length === 0)
+            {
+                response.code = 404;
+                response.message = "Record not found"
+                return response;
+            }
+
+            for(let record of selectResponse)
+            {
+                record.data = JSON.parse(record.data);
+                response.document = record;
+            }
+        }
+        catch(e)
+        {
+            console.log(e);
+            response.code = 500;
+            response.message = "error on get operation"
+        }
+
         return response;
     }
 

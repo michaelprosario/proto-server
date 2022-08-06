@@ -1,6 +1,5 @@
-import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentsQuery } from '@/core/requests/commands';
+import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery } from '@/core/requests/commands';
 import { DocumentsService } from '@/core/services/documents-service';
-import { DocumentsFileRepository } from '@/infra/documents-file-repository';
 import { DocumentsSqliteRepository } from '@/infra/documents-sqlite-repository';
 import { NextFunction, Request, Response } from 'express';
 
@@ -31,6 +30,16 @@ class DocumentsController {
       next(error);
     }
   };
+
+  public getDocument = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const command: GetDocumentQuery = req.body;
+      const response = await this.documentsService.get(command);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  };  
 
   public getDocuments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
