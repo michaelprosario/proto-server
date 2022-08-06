@@ -16,7 +16,7 @@ export class DocumentsSqliteRepository implements IDocRepository {
         {
             let insertResponse = await knex('docs')
                 .where({"id": doc.id})
-                .update(doc)
+                .update({"data": JSON.stringify(doc.data)})
         }
         catch(e)
         {
@@ -103,6 +103,8 @@ export class DocumentsSqliteRepository implements IDocRepository {
         try{
             let selectResponse = await knex('docs')
             .select().where({"collection": command.collection})
+
+            console.log(selectResponse);
 
             for(let record of selectResponse)
             {

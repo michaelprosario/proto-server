@@ -55,6 +55,7 @@ class DocumentsController {
     try {
       const command: GetDocumentsQuery = req.body;
       const response = await this.documentsService.getDocuments(command);
+      
       res.status(200).json(response);
     } catch (error) {
       next(error);

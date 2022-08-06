@@ -4,6 +4,11 @@ import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResp
 
 export class DocumentsService
 {
+    constructor(private docRepository: IDocRepository)
+    {
+
+    }
+
     async update(command: UpdateDocumentCommand) {
         let response = new AppResponse();
         if(!command || !command.document)
@@ -42,11 +47,6 @@ export class DocumentsService
         }
             
         return await this.docRepository.update(command);
-    }
-
-    constructor(private docRepository: IDocRepository)
-    {
-
     }
 
     async add(command: AddDocumentCommand): Promise<AddDocumentResponse> {
