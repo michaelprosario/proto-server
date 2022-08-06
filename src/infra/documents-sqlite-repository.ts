@@ -43,23 +43,13 @@ export class DocumentsSqliteRepository implements IDocRepository {
 
         try{
             let selectResponse = await knex('docs')
-            .select({
-                id: 'id',
-                createdBy: 'createdBy',
-                createdAt: 'createdAt',
-                name: 'name',
-                collection: 'collection',
-                data: 'data'    
-            })
+            .select().where({"collection": command.collection})
 
             for(let record of selectResponse)
             {
                 record.data = JSON.parse(record.data);
                 response.documents.push(record);
             }
-
-            console.log(selectResponse);
-
         }
         catch(e)
         {

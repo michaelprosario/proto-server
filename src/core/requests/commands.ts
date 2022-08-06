@@ -28,5 +28,5 @@ export class GetDocumentsQuery
 {
     userId: string;
     query: any;
-    collect: string;
+    collection: string;
 }
