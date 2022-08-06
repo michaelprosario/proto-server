@@ -29,8 +29,21 @@ export class DocumentsSqliteRepository implements IDocRepository {
     async delete(command: DeleteDocumentCommand): Promise<AppResponse> {
         let response = new AppResponse();
 
+        try{
+            let deleteResponse = await knex('docs')
+            .where({"id": command.recordId}).del();
+        }
+        catch(e)
+        {
+            console.log(e);
+            response.code = 500;
+            response.message = "error on get operation"
+        }
+
         return response;
+
     }
+
     async get(command: GetDocumentQuery): Promise<GetDocumentResponse> {
         let response = new GetDocumentResponse();
 

@@ -73,6 +73,13 @@ export class DocumentsService
             return response;
         }
 
+        if(!command.recordId)
+        {
+            response.code = 400;
+            response.message = "command.recordId not defined";
+            return response;
+        }
+
         return await this.docRepository.delete(command);
     }
 
