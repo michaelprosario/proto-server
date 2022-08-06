@@ -12,9 +12,9 @@ import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 
-const knexConfig = require('./db/knexfile');
+//const knexConfig = require('./db/knexfile');
 //initialize knex
-const knex = require('knex')(knexConfig[process.env.NODE_ENV])
+//const knex = require('knex')(knexConfig[process.env.NODE_ENV])
 
 class App {
   public app: express.Application;
