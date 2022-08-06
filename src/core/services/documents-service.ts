@@ -13,28 +13,35 @@ export class DocumentsService
         let response = new AddDocumentResponse();
         if(!command || command.document)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command or document not defined";
             return response;
         }
 
         if(!command.userId)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command.userId not defined";
             return response;
         }
 
         if(!command.document.name)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command.document.name not defined";
+            return response;
+        }
+
+        if(!command.document.collection)
+        {
+            response.code = 400;
+            response.message = "command.document.collection not defined";
             return response;
         }
 
         if(!command.document.data)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command.document.data not defined";
             return response;
         }
@@ -53,14 +60,14 @@ export class DocumentsService
         let response = new AppResponse();
         if(!command)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command not defined";
             return response;
         }
 
         if(!command.userId)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command.userId not defined";
             return response;
         }
@@ -72,14 +79,14 @@ export class DocumentsService
         let response = new GetDocumentResponse();
         if(!command)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command not defined";
             return response;
         }
 
         if(!command.userId)
         {
-            response.code = 401;
+            response.code = 400;
             response.message = "command.userId not defined";
             return response;
         }

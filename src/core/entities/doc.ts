@@ -4,5 +4,6 @@ export class Doc
     createdBy: string;
     createdAt: number;
     name: string;
+    collection: string;
     data: any;    
 }
