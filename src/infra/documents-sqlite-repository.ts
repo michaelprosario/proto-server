@@ -14,9 +14,16 @@ export class DocumentsSqliteRepository implements IDocRepository {
 
         try
         {
+            let currentUserId = command.userId;
+            let updateTimeStamp = Date.now();
             let insertResponse = await knex('docs')
                 .where({"id": doc.id})
-                .update({"data": JSON.stringify(doc.data)})
+                .update({
+                    "data": JSON.stringify(doc.data),
+                    "updatedAt": updateTimeStamp, 
+                    "updatedBy": currentUserId,
+                    "tags": doc.tags
+                })
         }
         catch(e)
         {

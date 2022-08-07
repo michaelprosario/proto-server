@@ -1,95 +1,12 @@
-todo
 
-infrastructure
-
-add
-
-review entity design ....
-export class Doc
-{
-    id: string;
-    createdBy: string;
-    createdAt: number;
-    name: string;
-    collection: string;
-    data: any;    
-}
-
-create table 
-
-CREATE TABLE docs (
-	id TEXT PRIMARY KEY,
-	createdBy TEXT NOT NULL,
-	createdAt integer NOT NULL,
-	name TEXT NOT NULL,
-    collection TEXT NOT NULL,
-    data TEXT NOT NULL
-);
-
-connect to db
-
-do insert into table
-
-https://blog.shahednasser.com/knex-js-tutorial-for-beginners/
+next
+- store operation
+- record exists?
 
 
+How to re-gen db?
 
-delete
-list
-get
-
-
-
-====
-
-- implement get 
-    - add controller
-    - add routes
-    x- add service
-    - add infrastructure
-
-
-- implement delete
-    - add controller
-    - add routes
-    - add service
-    - add infrastructure
-
-- how to implement queries?
-    - add controller
-    - add routes
-    - add service
-    - add infrastructure
-
-
-questions
-
-
-info
-
-Doc
-id
-data
-createdAt
-createdBy
-
-
-
-===
-
-celebration
-
-
-x- design document
-x- implement add
-    x- add controller
-    x- add routes
-    x- add service
-    x- add infrastructure
-
-x- implement delete
-    x- add controller
-    x- add routes
-    x- add service
-    x- add infrastructure
-
+- npm install knex
+- delete sqlite file in db folder
+- move to root project folder
+- npm run migrate

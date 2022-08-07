@@ -1,9 +1,12 @@
 export class Doc
 {
-    id: string;
-    createdBy: string;
-    createdAt: number;
-    name: string;
     collection: string;
+    createdAt: number;
+    createdBy: string;
     data: any;    
+    id: string;
+    name: string;
+    tags: string;
+    updatedAt: number;
+    updatedBy: string;
 }
