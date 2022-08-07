@@ -52,6 +52,7 @@ export class DocumentsSqliteRepository implements IDocRepository {
             response.message = "error on insert";
         }
 
+        response.document = doc;
         return response;
     }
 
@@ -71,6 +72,29 @@ export class DocumentsSqliteRepository implements IDocRepository {
 
         return response;
 
+    }
+
+    async recordExists(recordId: string): Promise<boolean> {
+        let response = new GetDocumentResponse();
+
+        try{
+            let selectResponse = await knex('docs')
+            .select().where({"id": recordId})
+
+            if(!selectResponse || selectResponse.length === 0)
+            {
+                return false;
+            }else {
+                return true;
+            }
+        }
+        catch(e)
+        {
+            console.log(e);
+            return false;
+        }
+
+        return false;
     }
 
     async get(command: GetDocumentQuery): Promise<GetDocumentResponse> {

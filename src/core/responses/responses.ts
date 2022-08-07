@@ -23,6 +23,15 @@ export class AddDocumentResponse extends AppResponse
     }
 }
 
+export class StoreDocumentResponse extends AppResponse
+{
+    document: Doc;
+
+    constructor()
+    {
+        super()
+    }
+}
 
 export class GetDocumentResponse extends AppResponse
 {

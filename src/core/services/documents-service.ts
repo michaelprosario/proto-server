@@ -1,6 +1,6 @@
 import { IDocRepository } from "../interfaces/doc-repository";
-import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, UpdateDocumentCommand } from "../requests/commands";
-import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResponse } from "../responses/responses";
+import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, StoreDocumentCommand, UpdateDocumentCommand } from "../requests/commands";
+import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResponse, StoreDocumentResponse } from "../responses/responses";
 
 export class DocumentsService
 {
@@ -47,6 +47,66 @@ export class DocumentsService
         }
             
         return await this.docRepository.update(command);
+    }
+
+    async store(command: StoreDocumentCommand) : Promise<StoreDocumentResponse> {
+        let response = new StoreDocumentResponse();
+        if(!command || !command.document)
+        {
+            response.code = 400;
+            response.message = "command or document not defined";
+            return response;
+        }
+
+        if(!command.userId)
+        {
+            response.code = 400;
+            response.message = "command.userId not defined";
+            return response;
+        }
+
+        if(!command.document.name)
+        {
+            response.code = 400;
+            response.message = "command.document.name not defined";
+            return response;
+        }
+
+        if(!command.document.collection)
+        {
+            response.code = 400;
+            response.message = "command.document.collection not defined";
+            return response;
+        }
+
+        if(!command.document.data)
+        {
+            response.code = 400;
+            response.message = "command.document.data not defined";
+            return response;
+        }
+        // check to see if record exists
+        let documentId = "";
+        if(this.docRepository.recordExists(command.document.id))
+        {
+            // update if it does exist
+            let updateCommand = new UpdateDocumentCommand();
+            updateCommand.document = command.document;
+            updateCommand.userId = command.userId;
+            await this.update(command);
+            response.document = command.document;
+            
+        }else{
+            // run add if it it does not exists
+            let addCommand = new AddDocumentCommand();
+            addCommand.document = command.document;
+            addCommand.userId = command.userId;
+            let addResponse = await this.add(addCommand);
+            response.document = addResponse.document;
+        }
+
+        return response;
+
     }
 
     async add(command: AddDocumentCommand): Promise<AddDocumentResponse> {

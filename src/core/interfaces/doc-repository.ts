@@ -8,4 +8,5 @@ export interface IDocRepository
     delete(command: DeleteDocumentCommand) : Promise<AppResponse>;
     get(command: GetDocumentQuery) : Promise<GetDocumentResponse>;
     getDocuments(command: GetDocumentsQuery) : Promise<GetDocumentsResponse>;
+    recordExists(recordId: string): Promise<boolean>;
 }

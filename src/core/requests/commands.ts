@@ -12,6 +12,12 @@ export class UpdateDocumentCommand
     document: Doc;
 }
 
+export class StoreDocumentCommand
+{
+    userId: string;
+    document: Doc;
+}
+
 export class DeleteDocumentCommand
 {
     userId: string;
