@@ -1,7 +1,6 @@
 import { IDocRepository } from "@/core/interfaces/doc-repository";
 import { AddDocumentCommand, DeleteDocumentCommand, GetDocumentQuery, GetDocumentsQuery, UpdateDocumentCommand } from "@/core/requests/commands";
 import { AddDocumentResponse, AppResponse, GetDocumentResponse, GetDocumentsResponse } from "@/core/responses/responses";
-import { json } from "envalid";
 const knexConfig = require('../../db/knexfile');
 const knex = require('knex')(knexConfig["development"])
 
